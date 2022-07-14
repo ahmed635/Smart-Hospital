@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,https://smarthospitalhelwan.herokuapp.com").split(",")
 
-
+CSRF_TRUSTED_ORIGINS=["https://smarthospitalhelwan.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
