@@ -154,3 +154,5 @@ MESSAGE_TAGS = {
     # messages.INFO: 'write the keyword that you want to show',
     messages.ERROR: 'danger',
 }
+import django_heroku
+django_heroku.settings(locals())
