@@ -1,0 +1,292 @@
+{% extends 'base3.html' %}
+{% load notifications_tags %}
+{% load static %}
+
+{% block title%} Workstation Nurse {% endblock%}
+
+{% block navbar %}
+    {% include 'partials/_navbar2.html' %}
+    <!-- Horizontal navbar 2 -->
+    <div id="navbar2" class="app-navbar horizontal horizontal-vertical">
+        <div class="navbar-wrap">
+
+            <button class="no-style navbar-toggle navbar-close icofont-close-line d-lg-none"></button>
+
+
+            <div class="app-logo">
+                <div class="logo-wrap">
+                    <svg width="50" height="50" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" class="fill-svg">
+                        <path d="m359.43 43.234v24.375h24.375v18.859h-24.375v24.375h-18.859v-24.375h-24.375v-18.859h24.375v-24.375zm67.027 24.375h92.559c5.2227 0 9.5742 4.3516 9.5742 9.5742v103.3h125.93c5.2227 0 9.2852 4.0625 9.2852 9.2852v360.95c0 4.9336-4.0625 9.2852-9.2852 9.2852h-609.04c-4.9336 0-9.2852-4.3516-9.2852-9.2852v-360.95c0-5.2227 4.3516-9.2852 9.2852-9.2852h125.93v-103.3c0-5.2227 4.3516-9.5742 9.5742-9.5742h92.559c2.0312-17.41 10.156-33.078 22.051-44.973 13.926-13.926 33.078-22.633 54.551-22.633 39.172 0 71.668 29.598 76.312 67.605zm-152.91 18.859h-83.273v454.67h105.33v-103.3c0-5.2227 4.0625-9.2852 9.2852-9.2852h90.238c5.2227 0 9.2852 4.0625 9.2852 9.2852v103.3h105.33v-454.67h-83.273c-4.6406 38.012-37.141 67.605-76.312 67.605-39.461 0-71.957-29.598-76.602-67.605zm76.602-67.605c-16.25 0-30.758 6.3828-41.203 17.121-10.734 10.445-17.121 24.953-17.121 41.203 0 32.207 25.824 58.031 58.32 58.031 32.207 0 58.031-25.824 58.031-58.031 0-32.496-25.824-58.32-58.031-58.32zm214.13 319.46h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 4.9336-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.57h-26.402v26.402h26.402zm-35.688-108.81h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.859h-26.402v26.113h26.402zm-71.379-67.895v342.09h116.35v-342.09zm-437.84 139.27h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 4.9336-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.57h-26.402v26.402h26.402zm-35.688-108.81h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.859h-26.402v26.113h26.402zm44.973-67.895h-116.35v342.09h116.35zm65.867 3.7734h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.5742-9.5742 9.5742h-44.973c-5.2227 0-9.2852-4.3516-9.2852-9.5742v-44.973c0-5.2227 4.0625-9.5742 9.2852-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.5742-9.5742 9.5742h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.5742v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.2852 4.3516 9.2852 9.5742v44.973c0 5.2227-4.0625 9.5742-9.2852 9.5742h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.5742v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm-216.16 71.379h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.2852-4.0625-9.2852-9.2852v-44.973c0-5.2227 4.0625-9.5742 9.2852-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.2852 4.3516 9.2852 9.5742v44.973c0 5.2227-4.0625 9.2852-9.2852 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm-139.27 229.22h71.668v-94.012h-71.668z" />
+                    </svg>
+                    <!-- end SVG logo -->
+                    <div class="text m-3 text-blue"><span>Smart Hospital</span></div>
+                </div>
+            </div>
+            <div class="main-menu">
+                <nav class="main-menu-wrap">
+                    <ul class="menu-ul">
+                        <li class="menu-item active">
+                            <a class="item-link" href="{% url 'workstation_nurse'%}">
+                                <span class="link-text text-dark">Home</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="item-link" href="{% url 'profile' pat_id=request.user.id %}">
+                                <span class="link-text">Profile</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="item-link" href="{% url 'edit_profile'%}">
+                                <span class="link-text">Edit Profile</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="navbar-skeleton vertical">
+                <div class="top-part">
+                    <div class="sk-logo bg animated-bg"></div>
+                    <div class="sk-menu">
+                        <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                        <span class="sk-menu-item bg animated-bg w-75"></span>
+                        <span class="sk-menu-item bg animated-bg w-80"></span>
+                        <span class="sk-menu-item bg animated-bg w-50"></span>
+                        <span class="sk-menu-item bg animated-bg w-75"></span>
+                        <span class="sk-menu-item bg animated-bg w-50"></span>
+                        <span class="sk-menu-item bg animated-bg w-60"></span>
+                    </div>
+                    <div class="sk-menu">
+                        <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                        <span class="sk-menu-item bg animated-bg w-60"></span>
+                        <span class="sk-menu-item bg animated-bg w-40"></span>
+                        <span class="sk-menu-item bg animated-bg w-60"></span>
+                        <span class="sk-menu-item bg animated-bg w-40"></span>
+                        <span class="sk-menu-item bg animated-bg w-40"></span>
+                        <span class="sk-menu-item bg animated-bg w-40"></span>
+                        <span class="sk-menu-item bg animated-bg w-40"></span>
+                    </div>
+                    <div class="sk-menu">
+                        <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                        <span class="sk-menu-item bg animated-bg w-60"></span>
+                        <span class="sk-menu-item bg animated-bg w-50"></span>
+                    </div>
+                    <div class="sk-button animated-bg w-90"></div>
+                </div>
+
+                <div class="bottom-part">
+                    <div class="sk-menu">
+                        <span class="sk-menu-item bg-1 animated-bg w-60"></span>
+                        <span class="sk-menu-item bg-1 animated-bg w-80"></span>
+                    </div>
+                </div>
+
+                <div class="horizontal-menu">
+                    <span class="sk-menu-item bg animated-bg"></span>
+                    <span class="sk-menu-item bg animated-bg"></span>
+                    <span class="sk-menu-item bg animated-bg"></span>
+                    <span class="sk-menu-item bg animated-bg"></span>
+                    <span class="sk-menu-item bg animated-bg"></span>
+                    <span class="sk-menu-item bg animated-bg"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- endHorizontal navbar 2 -->
+{% endblock navbar %}
+
+{% block mainContent %}
+
+    <!-- Start main page -->
+    <main class="main-content">
+        <div class="app-loader"><i class="icofont-spinner-alt-4 rotate"></i></div>
+        <div class="main-content-wrap">
+            <div class="page-content">
+                <div class="card mt-0">
+                    <div class="card-body">
+                        <h4> Workstation </h4>
+                        <!-- alerts -->
+                        {% include 'partials/_alerts.html' %}
+                        {% comment %} <!--
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        
+                            <strong> Error:</strong>
+                            {% live_notify_badge %}
+                            {% live_notify_list %}
+                            <button class="btn-close" data-bs-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button> 
+                        </div> 
+                        --> {% endcomment %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Chat</th>
+                                        <th scope="col">Alert</th>
+                                        <th scope="col">HR (bpm)</th>
+                                        <th scope="col">SPO2 (%)</th>
+                                        <th scope="col">Temp. <span> &#8451 </span></th>
+                                        <th scope="col">Blood Preasure</th>
+                                        <th scope="col">Medicine</th>
+                                        <th scope="col">Charts</th>
+                                        <th scope="col">Comment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for patient in patients %}
+                                        <tr>
+                                            <!-- patient full Name -->
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'profile' pat_id=patient.user_id %}" class="btn btn-info btn-sm btn-square rounded-pill">
+                                                        <span class="btn-icon icofont-user-alt-7"> {{patient.full_name}} </span>
+                                                    </a>           
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'chat' chat_id=patient.user_id %}"  >
+                                                        <span class="btn-icon icon icofont-wechat" style="font-size: 30px;"> </span>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="actions">
+                                                
+                                                    <span id="{{patient.device}}_alerm" class="icon icofont-alarm" style="margin-right: 10px; color: blue; font-size: 20px;"> 
+                                                        <button id="{{patient.device}}_reset" onclick="reset();" style="display: none; margin-left:10px;" class="btn btn-primary btn-sm"> Reset </button>
+                                                    </span>
+                    
+                                                </div>
+                                            </td>
+
+                                            <!-- heart rate -->
+                                            <td>
+                                                <div id="{{patient.device}}_heart_rate" class="text-muted">----------</div>
+                                            </td>
+
+                                            <!-- spo2 -->
+                                            <td>
+                                                <div id="{{patient.device}}_spo2" class="text-muted text-nowrap">----------</div>
+                                            </td>
+
+                                            <!-- temperature -->
+                                            <td>
+                                                <div id="{{patient.device}}_temperature" class="text-muted-col">----------</div>
+                                            </td>
+
+                                            <!-- pressure -->
+                                            <td>
+                                                <div id="{{patient.device}}_pressure" class="text-muted text-nowrap">----------</div>
+                                            </td>
+
+                                            <!-- add medications -->
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'medications' med_id=patient.user_id %}" class="btn btn-info btn-sm btn-square rounded-pill">
+                                                        <span class="btn-icon icofont-pills"></span>
+                                                    </a>
+                                            </td>
+                                            <!-- see charts -->
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'charts' chart_id=patient.user_id%}" class="btn btn-outline-dark btn-sm btn-square rounded-pill">
+                                                        <span class="btn-icon icofont-chart-line"></span>
+                                                    </a>
+                                            </td>
+
+                                            <!-- add comments -->
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'comments' com_id=patient.user_id %}" class="btn btn-error btn-sm btn-square rounded-pill">
+                                                        <span class="btn-icon icofont-comment"></span>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- End main page -->
+{% endblock mainContent %}
+
+{% block javascript2 %}
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'getRealParameters' %}",
+                    success: function(responese){               
+                        id = responese.patient_parameters["device_id"];
+                        var heart_rate = responese.patient_parameters["Heart Rate"];
+                        var spo2 = responese.patient_parameters["SPO2"];
+                        var sys_pressure = responese.patient_parameters["sys pressure"];
+                        var dia_pressure = responese.patient_parameters["dya pressure"];
+                        var temp = responese.patient_parameters["body temperature"];
+                        //console.log(id)
+                        if(id == "{{firebase_patient_id}}" ) {
+                                //console.log(responese.patient_parameters);
+                                $("#{{firebase_patient_id}}_spo2").empty();
+                                $("#{{firebase_patient_id}}_heart_rate").empty();
+                                $("#{{firebase_patient_id}}_temperature").empty();
+                                $("#{{firebase_patient_id}}_pressure").empty();
+                                $("#{{firebase_patient_id}}_spo2").append(spo2);
+                                $("#{{firebase_patient_id}}_temperature").append(temp);
+                                $("#{{firebase_patient_id}}_heart_rate").append(heart_rate); 
+                                $("#{{firebase_patient_id}}_pressure").append(sys_pressure + " / " + dia_pressure);
+                                
+                                if(spo2 >= 100 || spo2 <= 92){
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
+                                    //console.log("SpO2");
+                                } else if(temp >= 38 || temp <= 34){  
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
+                                    //console.log("temperature");
+                                } else if (heart_rate >= 120 || heart_rate <= 55){
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
+                                    //console.log("heart rate");
+                                } else if (dia_pressure >= 90 || dia_pressure <= 65){
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
+                                    //console.log("dia pressure");
+                                } else if (sys_pressure >= 135 || sys_pressure <= 100){
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
+                                    //console.log("sys pressure");
+                                } else {
+                                    document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'green';
+                                    //console.log("Normal");
+                                    document.getElementById('{{firebase_patient_id}}_reset').style.display = 'none';
+
+                                }
+                            
+                                
+                        } else {
+                                console.log('check device id in firebase')
+                        }
+                    },
+                    
+                });
+            },120000); // for 5 minutes = 300000
+        });
+
+        function reset(){
+            document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'green';
+            document.getElementById('{{firebase_patient_id}}_reset').style.display = 'none';
+        }
+        
+    </script>
+{% endblock javascript2 %}

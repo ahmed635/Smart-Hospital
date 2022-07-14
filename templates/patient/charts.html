@@ -1,0 +1,805 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        Smart Hospital | {% block title %} Charts {% endblock %}
+    </title>
+    <meta name="keywords" content="MedicApp">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.typeahead.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/morris.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leon.css' %}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %} <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'> {% endcomment %}
+    
+    <!-- add ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body class="horizontal-layout boxed">
+
+    <div class="page-box">
+        <div class="app-container">
+            {% block navbar %}
+                {% if is_patient == True %}
+                    {% include 'partials/_patient_navbar.html' %}
+                {% else %}
+                    {% include 'partials/_navbar2.html' %}
+                {% endif %}
+                <!-- Horizontal navbar 2 -->
+                <div id="navbar2" class="app-navbar horizontal horizontal-vertical">
+                    <div class="navbar-wrap">
+
+                        <button class="no-style navbar-toggle navbar-close icofont-close-line d-lg-none"></button>
+
+
+                        <div class="app-logo">
+                            <div class="logo-wrap">
+                                <svg width="50" height="50" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" class="fill-svg">
+                                    <path d="m359.43 43.234v24.375h24.375v18.859h-24.375v24.375h-18.859v-24.375h-24.375v-18.859h24.375v-24.375zm67.027 24.375h92.559c5.2227 0 9.5742 4.3516 9.5742 9.5742v103.3h125.93c5.2227 0 9.2852 4.0625 9.2852 9.2852v360.95c0 4.9336-4.0625 9.2852-9.2852 9.2852h-609.04c-4.9336 0-9.2852-4.3516-9.2852-9.2852v-360.95c0-5.2227 4.3516-9.2852 9.2852-9.2852h125.93v-103.3c0-5.2227 4.3516-9.5742 9.5742-9.5742h92.559c2.0312-17.41 10.156-33.078 22.051-44.973 13.926-13.926 33.078-22.633 54.551-22.633 39.172 0 71.668 29.598 76.312 67.605zm-152.91 18.859h-83.273v454.67h105.33v-103.3c0-5.2227 4.0625-9.2852 9.2852-9.2852h90.238c5.2227 0 9.2852 4.0625 9.2852 9.2852v103.3h105.33v-454.67h-83.273c-4.6406 38.012-37.141 67.605-76.312 67.605-39.461 0-71.957-29.598-76.602-67.605zm76.602-67.605c-16.25 0-30.758 6.3828-41.203 17.121-10.734 10.445-17.121 24.953-17.121 41.203 0 32.207 25.824 58.031 58.32 58.031 32.207 0 58.031-25.824 58.031-58.031 0-32.496-25.824-58.32-58.031-58.32zm214.13 319.46h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 4.9336-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.57h-26.402v26.402h26.402zm-35.688-108.81h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.859h-26.402v26.113h26.402zm-71.379-67.895v342.09h116.35v-342.09zm-437.84 139.27h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 4.9336-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.57h-26.402v26.402h26.402zm-35.688-108.81h44.973c5.2227 0 9.5742 4.0625 9.5742 9.2852v45.266c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-45.266c0-5.2227 4.3516-9.2852 9.5742-9.2852zm35.688 18.859h-26.402v26.113h26.402zm44.973-67.895h-116.35v342.09h116.35zm65.867 3.7734h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.5742-9.5742 9.5742h-44.973c-5.2227 0-9.2852-4.3516-9.2852-9.5742v-44.973c0-5.2227 4.0625-9.5742 9.2852-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.5742-9.5742 9.5742h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.5742v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.2852 4.3516 9.2852 9.5742v44.973c0 5.2227-4.0625 9.5742-9.2852 9.5742h-44.973c-5.2227 0-9.5742-4.3516-9.5742-9.5742v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm-216.16 71.379h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.2852-4.0625-9.2852-9.2852v-44.973c0-5.2227 4.0625-9.5742 9.2852-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.5742 4.3516 9.5742 9.5742v44.973c0 5.2227-4.3516 9.2852-9.5742 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm54.551-18.859h44.973c5.2227 0 9.2852 4.3516 9.2852 9.5742v44.973c0 5.2227-4.0625 9.2852-9.2852 9.2852h-44.973c-5.2227 0-9.5742-4.0625-9.5742-9.2852v-44.973c0-5.2227 4.3516-9.5742 9.5742-9.5742zm35.688 18.859h-26.402v26.402h26.402zm-139.27 229.22h71.668v-94.012h-71.668z" />
+                                </svg>
+                                <!-- end SVG logo -->
+                                <div class="text m-3 text-blue"><span>Smart Hospital</span></div>
+                            </div>
+                        </div>
+                        <div class="main-menu">
+                            <nav class="main-menu-wrap">
+                                <ul class="menu-ul">
+                                    <li class="menu-item active">
+                                        {% if is_workstation_nurse == True %}
+                                            <a class="item-link" href="{% url 'workstation_nurse'%}">
+                                                <span class="link-text text-dark">Home</span>
+                                            </a>
+                                        {% elif is_doctor == True %}
+                                            <a class="item-link" href="{% url 'doctor'%}">
+                                                <span class="link-text text-dark">Home</span>
+                                            </a>
+                                        {% elif is_patient == True %}
+                                            <a class="item-link" href="{% url 'patient' pat_id=request.user.id %}">
+                                                <span class="link-text text-dark">Home</span>
+                                            </a>
+                                        {% else %}
+                                        {% endif %}
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="item-link" href="{% url 'profile' pat_id=request.user.id %}">
+                                            <span class="link-text">Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="item-link" href="{% url 'edit_profile'%}">
+                                            <span class="link-text">Edit Profile</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navbar-skeleton vertical">
+                            <div class="top-part">
+                                <div class="sk-logo bg animated-bg"></div>
+                                <div class="sk-menu">
+                                    <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                                    <span class="sk-menu-item bg animated-bg w-75"></span>
+                                    <span class="sk-menu-item bg animated-bg w-80"></span>
+                                    <span class="sk-menu-item bg animated-bg w-50"></span>
+                                    <span class="sk-menu-item bg animated-bg w-75"></span>
+                                    <span class="sk-menu-item bg animated-bg w-50"></span>
+                                    <span class="sk-menu-item bg animated-bg w-60"></span>
+                                </div>
+                                <div class="sk-menu">
+                                    <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                                    <span class="sk-menu-item bg animated-bg w-60"></span>
+                                    <span class="sk-menu-item bg animated-bg w-40"></span>
+                                    <span class="sk-menu-item bg animated-bg w-60"></span>
+                                    <span class="sk-menu-item bg animated-bg w-40"></span>
+                                    <span class="sk-menu-item bg animated-bg w-40"></span>
+                                    <span class="sk-menu-item bg animated-bg w-40"></span>
+                                    <span class="sk-menu-item bg animated-bg w-40"></span>
+                                </div>
+                                <div class="sk-menu">
+                                    <span class="sk-menu-item menu-header bg-1 animated-bg"></span>
+                                    <span class="sk-menu-item bg animated-bg w-60"></span>
+                                    <span class="sk-menu-item bg animated-bg w-50"></span>
+                                </div>
+                                <div class="sk-button animated-bg w-90"></div>
+                            </div>
+
+                            <div class="bottom-part">
+                                <div class="sk-menu">
+                                    <span class="sk-menu-item bg-1 animated-bg w-60"></span>
+                                    <span class="sk-menu-item bg-1 animated-bg w-80"></span>
+                                </div>
+                            </div>
+
+                            <div class="horizontal-menu">
+                                <span class="sk-menu-item bg animated-bg"></span>
+                                <span class="sk-menu-item bg animated-bg"></span>
+                                <span class="sk-menu-item bg animated-bg"></span>
+                                <span class="sk-menu-item bg animated-bg"></span>
+                                <span class="sk-menu-item bg animated-bg"></span>
+                                <span class="sk-menu-item bg animated-bg"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- endHorizontal navbar 2 -->
+
+            {% endblock navbar %}
+
+            <!-- content -->
+            <!-- Start main page -->
+            <main class="main-content">
+                <div class="app-loader"><i class="icofont-spinner-alt-4 rotate"></i></div>
+
+                <div class="main-content-wrap">
+                    <div class="page-content">
+                        <div>
+                            <span class="icon p-2 opacity-50 icon icofont-ui-user" style="font-size:40px;"><h5 class="mb-0 mt-0 me-1">{{patient.full_name}}</h5></span>
+                        </div>
+                        <!-- alerts -->
+                        {% include 'partials/_alerts.html' %}
+                        
+                        {% if no_chart == False %}
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div id="line_top_bp"></div>
+                            </div>
+
+                            <div class="row align-items-center mt-5">
+                                <div id="chart_div"></div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </main>
+            <!-- End main page -->
+        </div>
+    </div>
+    {% include 'partials/_footer.html' %}
+    
+    {% block javascript %}
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+            google.charts.load('current', {
+                'packages': ['line']
+            });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'Time');
+                data.addColumn('number', 'Systolic');
+                data.addColumn('number', 'Diastolic');
+
+                /*data.addRows([
+                    [[0, 30, 45], 120, 80],
+                    [[1, 30, 45], 123, 80],
+                    [[2, 30, 45], 119, 79],
+                    [[3, 30, 45], 115, 80],
+                    [[4, 30, 45], 120, 70],
+                    [[5, 30, 45], 120, 75],
+                    [[6, 30, 45], 119, 67],
+                    [[7, 30, 45], 121, 70],
+                    [[8, 30, 45], 122, 75],
+                    [[9, 30, 45], 120, 80],
+                    [[10, 30, 45], 123, 80],
+                    [[11, 30, 45], 119, 75],
+                    [
+                        [12, 30, 45], 118, 63
+                    ],
+                    [
+                        [13, 30, 45], 117, 70
+                    ],
+                    [
+                        [14, 30, 45], 118, 80.8
+                    ],
+                    [
+                        [15, 30, 45], 120, 69.5
+                    ],
+                    [
+                        [16, 30, 45], 123, 67
+                    ],
+                    [
+                        [17, 30, 45], 120, 75
+                    ],
+                    [
+                        [18, 30, 45], 110, 75
+                    ],
+                    [
+                        [19, 30, 45], 100, 60
+                    ],
+                    [
+                        [20, 30, 45], 120, 80
+                    ],
+                    [
+                        [21, 30, 45], 120, 83
+                    ],
+                    [
+                        [22, 30, 45], 118, 67
+                    ],
+                    [
+                        [23, 30, 45], 119, 73
+                    ]
+                ]);*/
+                data.addRows(
+                    [
+                    {% for parameter in patient_parameter %}
+                    
+                    [
+                        new Date(
+                            {{parameter.date_in.year}},
+                            {{parameter.date_in.month}}-1,
+                            {{parameter.date_in.day}},
+                            {{parameter.time_in.hour}},
+                            {{parameter.time_in.minute}},
+                            {{parameter.time_in.second}},
+                        ), 
+                        {{parameter.sys_pressure}}, 
+                        {{parameter.dia_pressure}}],
+                    
+                    {% endfor %} 
+                ]);
+
+                var options = {
+                    chart: {
+                        title: 'Blood Pressure',
+                        //subtitle: 'in millions of dollars (USD)'
+                    },
+                    //width: 900,
+                    height: 300,
+                    axes: {
+                        x: {
+                            0: {
+                                side: 'bottom'
+                            }
+                        }
+                    }
+                };
+
+                var chart = new google.charts.Line(document.getElementById('line_top_bp'));
+
+                chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script>
+            google.charts.load('current', {
+                'packages': ['line', 'corechart']
+            });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var button = document.getElementById('change-chart');
+                var chartDiv = document.getElementById('chart_div');
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'Time');
+                data.addColumn('number', "HR");
+                data.addColumn('number', "SpO2");
+
+                /*data.addRows([
+                    [
+                        [0, 30, 45], 72, 100
+                    ],
+                    [
+                        [0, 40, 45], 87, 99
+                    ],
+                    [
+                        [0, 50, 45], 85, 95
+                    ],
+                    [
+                        [1, 0, 45], 63, 94
+                    ],
+                    [
+                        [1, 10, 45], 83, 96
+                    ],
+                    [
+                        [1, 20, 45], 72, 98
+                    ],
+                    [
+                        [1, 30, 45], 78, 97
+                    ],
+                    [
+                        [1, 40, 45], 74, 98
+                    ],
+                    [
+                        [1, 50, 45], 76, 96
+                    ],
+                    [
+                        [2, 0, 45], 78, 95
+                    ],
+                    [
+                        [2, 10, 45], 77, 100
+                    ],
+                    [
+                        [2, 20, 45], 81, 100
+                    ],
+                    [
+                        [2, 30, 45], 77, 100
+                    ],
+                    [
+                        [2, 40, 45], 66, 98
+                    ],
+                    [
+                        [2, 50, 45], 78, 99
+                    ],
+                    [
+                        [3, 0, 45], 76, 99
+                    ],
+                    [
+                        [3, 10, 45], 69, 98
+                    ],
+                    [
+                        [3, 20, 45], 70, 99
+                    ],
+                    [
+                        [3, 30, 45], 71, 97
+                    ],
+                    [
+                        [3, 40, 45], 70, 96
+                    ],
+                    [
+                        [3, 50, 45], 89, 97
+                    ],
+                    [
+                        [4, 0, 45], 60, 98
+                    ],
+                    [
+                        [4, 10, 45], 92, 95
+                    ],
+                    [
+                        [4, 20, 45], 75, 96
+                    ],
+                    [
+                        [4, 30, 45], 68, 97
+                    ],
+                    [
+                        [4, 40, 45], 83, 95
+                    ],
+                    [
+                        [4, 50, 45], 77, 97
+                    ],
+                    [
+                        [5, 0, 45], 89, 96
+                    ],
+                    [
+                        [5, 10, 45], 66, 100
+                    ],
+                    [
+                        [5, 20, 45], 68, 99
+                    ],
+                    [
+                        [5, 30, 45], 96, 99
+                    ],
+                    [
+                        [5, 40, 45], 92, 98
+                    ],
+                    [
+                        [5, 50, 45], 83, 99
+                    ],
+                    [
+                        [6, 0, 45], 71, 97
+                    ],
+                    [
+                        [6, 10, 45], 65, 98
+                    ],
+                    [
+                        [6, 20, 45], 91, 99
+                    ],
+                    [
+                        [6, 30, 45], 69, 98
+                    ],
+                    [
+                        [6, 40, 45], 65, 97
+                    ],
+                    [
+                        [6, 50, 45], 75, 97
+                    ],
+                    [
+                        [7, 0, 45], 92, 98
+                    ],
+                    [
+                        [7, 10, 45], 72, 96
+                    ],
+                    [
+                        [7, 20, 45], 87, 96
+                    ],
+                    [
+                        [7, 30, 45], 80, 95
+                    ],
+                    [
+                        [7, 40, 45], 82, 98
+                    ],
+                    [
+                        [7, 50, 45], 85, 99
+                    ],
+                    [
+                        [8, 0, 45], 91, 97
+                    ],
+                    [
+                        [8, 10, 45], 72, 97
+                    ],
+                    [
+                        [8, 20, 45], 80, 97
+                    ],
+                    [
+                        [8, 30, 45], 78, 96
+                    ],
+                    [
+                        [8, 40, 45], 76, 95
+                    ],
+                    [
+                        [8, 50, 45], 77, 99
+                    ],
+                    [
+                        [9, 0, 45], 81, 100
+                    ],
+                    [
+                        [9, 10, 45], 82, 95
+                    ],
+                    [
+                        [9, 20, 45], 66, 96
+                    ],
+                    [
+                        [9, 30, 45], 76, 97
+                    ],
+                    [
+                        [9, 40, 45], 86, 97
+                    ],
+                    [
+                        [9, 50, 45], 81, 98
+                    ],
+                    [
+                        [10, 0, 45], 69, 99
+                    ],
+                    [
+                        [10, 10, 45], 70, 100
+                    ],
+                    [
+                        [10, 20, 45], 73, 100
+                    ],
+                    [
+                        [10, 30, 45], 75, 100
+                    ],
+                    [
+                        [10, 40, 45], 69, 99
+                    ],
+                    [
+                        [10, 50, 45], 89, 98
+                    ],
+                    [
+                        [11, 0, 45], 85, 99
+                    ],
+                    [
+                        [11, 10, 45], 86, 98
+                    ],
+                    [
+                        [11, 20, 45], 93, 97
+                    ],
+                    [
+                        [11, 30, 45], 92, 98
+                    ],
+                    [
+                        [11, 40, 45], 90, 96
+                    ],
+                    [
+                        [11, 50, 45], 89, 97
+                    ],
+                    [
+                        [12, 0, 45], 99, 95
+                    ],
+                    [
+                        [12, 10, 45], 100, 96
+                    ],
+                    [
+                        [12, 20, 45], 110, 99
+                    ],
+                    [
+                        [12, 30, 45], 130, 98
+                    ],
+                    [
+                        [12, 40, 45], 125, 98
+                    ],
+                    [
+                        [12, 50, 45], 120, 99
+                    ],
+                    [
+                        [13, 0, 45], 105, 97
+                    ],
+                    [
+                        [13, 10, 45], 100, 96
+                    ],
+                    [
+                        [13, 20, 45], 100, 99
+                    ],
+                    [
+                        [13, 30, 45], 103, 93
+                    ],
+                    [
+                        [13, 40, 45], 99, 95
+                    ],
+                    [
+                        [13, 50, 45], 98, 99
+                    ],
+                    [
+                        [14, 0, 45], 95, 98
+                    ],
+                    [
+                        [14, 10, 45], 90, 97
+                    ],
+                    [
+                        [14, 20, 45], 89, 97
+                    ],
+                    [
+                        [14, 30, 45], 93, 98
+                    ],
+                    [
+                        [14, 40, 45], 90, 97
+                    ],
+                    [
+                        [14, 50, 45], 67, 99
+                    ],
+                    [
+                        [15, 0, 45], 70, 97
+                    ],
+                    [
+                        [15, 10, 45], 71, 96
+                    ],
+                    [
+                        [15, 20, 45], 75, 97
+                    ],
+                    [
+                        [15, 30, 45], 77, 95
+                    ],
+                    [
+                        [15, 40, 45], 88, 94
+                    ],
+                    [
+                        [15, 50, 45], 90, 96
+                    ],
+                    [
+                        [16, 0, 45], 92, 95
+                    ],
+                    [
+                        [16, 10, 45], 93, 96
+                    ],
+                    [
+                        [16, 20, 45], 100, 95
+                    ],
+                    [
+                        [16, 30, 45], 80, 96
+                    ],
+                    [
+                        [16, 40, 45], 82, 97
+                    ],
+                    [
+                        [16, 50, 45], 83, 98
+                    ],
+                    [
+                        [17, 0, 45], 85, 97
+                    ],
+                    [
+                        [17, 10, 45], 79, 96
+                    ],
+                    [
+                        [17, 20, 45], 75, 97
+                    ],
+                    [
+                        [17, 30, 45], 67, 98
+                    ],
+                    [
+                        [17, 40, 45], 69, 97
+                    ],
+                    [
+                        [17, 50, 45], 70, 95
+                    ],
+                    [
+                        [18, 0, 45], 75, 96
+                    ],
+                    [
+                        [18, 10, 45], 77, 98
+                    ],
+                    [
+                        [18, 20, 45], 83, 97
+                    ],
+                    [
+                        [18, 30, 45], 85, 98
+                    ],
+                    [
+                        [18, 40, 45], 82, 96
+                    ],
+                    [
+                        [18, 50, 45], 92, 95
+                    ],
+                    [
+                        [19, 0, 45], 93, 99
+                    ],
+                    [
+                        [19, 10, 45], 95, 100
+                    ],
+                    [
+                        [19, 20, 45], 90, 96
+                    ],
+                    [
+                        [19, 30, 45], 85, 98
+                    ],
+                    [
+                        [19, 40, 45], 83, 99
+                    ],
+                    [
+                        [19, 50, 45], 67, 97
+                    ],
+                    [
+                        [20, 0, 45], 69, 96
+                    ],
+                    [
+                        [20, 10, 45], 65, 95
+                    ],
+                    [
+                        [20, 20, 45], 70, 97
+                    ],
+                    [
+                        [20, 30, 45], 72, 98
+                    ],
+                    [
+                        [20, 40, 45], 76, 99
+                    ],
+                    [
+                        [20, 50, 45], 79, 100
+                    ],
+                    [
+                        [21, 0, 45], 83, 99
+                    ],
+                    [
+                        [21, 10, 45], 87, 98
+                    ],
+                    [
+                        [21, 20, 45], 92, 97
+                    ],
+                    [
+                        [21, 30, 45], 83, 97
+                    ],
+                    [
+                        [21, 40, 45], 83, 96
+                    ],
+                    [
+                        [21, 50, 45], 85, 95
+                    ],
+                    [
+                        [22, 0, 45], 80, 99
+                    ],
+                    [
+                        [22, 10, 45], 78, 97
+                    ],
+                    [
+                        [22, 20, 45], 75, 98
+                    ],
+                    [
+                        [22, 30, 45], 70, 96
+                    ],
+                    [
+                        [22, 40, 45], 69, 98
+                    ],
+                    [
+                        [22, 50, 45], 65, 99
+                    ],
+                    [
+                        [23, 0, 45], 66, 99
+                    ],
+                    [
+                        [23, 10, 45], 89, 98
+                    ],
+                    [
+                        [23, 20, 45], 92, 97
+                    ],
+                    [
+                        [23, 30, 45], 87, 95
+                    ],
+                    [
+                        [23, 40, 45], 90, 98
+                    ],
+                    [
+                        [23, 50, 45], 89, 100
+                    ],
+                ]);*/
+                
+                data.addRows([
+                    
+                    {% for parameter in patient_parameter %}
+                        [
+                            new Date(
+                                {{parameter.date_in.year}},
+                                {{parameter.date_in.month}}-1,
+                                {{parameter.date_in.day}},
+                                {{parameter.time_in.hour}},
+                                {{parameter.time_in.minute}},
+                                {{parameter.time_in.second}},
+                            ), 
+                            {{parameter.HR}}, 
+                            {{parameter.spo2}}
+                        ],
+                    {% endfor %}
+                ]);
+
+                var materialOptions = {
+                    chart: {
+                        title: 'Heart rate & SpO2'
+                    },
+                    //width: 900,
+                    height: 300,
+                    series: {
+                        // Gives each series an axis name that matches the Y-axis below.
+                        0: {
+                            axis: 'HR'
+                        },
+                        1: {
+                            axis: 'SpO2'
+                        }
+                    },
+                    axes: {
+                        // Adds labels to each axis; they don't have to match the axis names.
+                        y: {
+                            HR: {
+                                label: 'HR (bpm)'
+                            },
+                            SpO2: {
+                                label: 'SpO2(%)'
+                            }
+                        }
+                    }
+                };
+
+                function drawMaterialChart() {
+                    var materialChart = new google.charts.Line(chartDiv);
+                    materialChart.draw(data, materialOptions);
+                    button.onclick = drawClassicChart;
+                }
+                drawMaterialChart();
+                {% comment %} var chart = new google.charts.Line(document.getElementById('chart_div')); {% endcomment %}
+
+                {% comment %} chart.draw(data, google.charts.Line.convertOptions(materialOptions)); {% endcomment %}
+
+            }
+        </script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/jquery-migrate-1.4.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery.typeahead.min.js' %}"></script>
+        <script src="{% static 'js/datatables.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+        <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
+        <script src="{% static 'js/Chart.min.js' %}"></script>
+        <script src="{% static 'js/raphael-min.js' %}"></script>
+        <script src="{% static 'js/morris.min.js' %}"></script>
+        <script src="{% static 'js/echarts.min.js' %}"></script>
+        <script src="{% static 'js/echarts-gl.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    {% endblock javascript%}
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        Smart Hospital | {% block title %} {% endblock %}
+    </title>
+    <meta name="keywords" content="MedicApp">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.typeahead.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/morris.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leon.css' %}">
+
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> {% endcomment %}
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %} <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'> {% endcomment %}
+    
+    <!-- add ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- for bootstrap -->
+    <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css” rel="nofollow" integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”>
+</head>
+<body class="horizontal-layout boxed">
+
+    <div class="page-box">
+        <div class="app-container">
+            {% block navbar %}
+                
+
+            {% endblock navbar %}
+            <!-- code of the content -->
+            {% block mainContent %}
+            {% endblock mainContent %}
+        </div>
+    </div>
+    {% include 'partials/_footer.html' %}
+
+    {% block javascript %}
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/jquery-migrate-1.4.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery.typeahead.min.js' %}"></script>
+        <script src="{% static 'js/datatables.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+        <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
+        <script src="{% static 'js/Chart.min.js' %}"></script>
+        <script src="{% static 'js/raphael-min.js' %}"></script>
+        <script src="{% static 'js/morris.min.js' %}"></script>
+        <script src="{% static 'js/echarts.min.js' %}"></script>
+        <script src="{% static 'js/echarts-gl.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    {% endblock javascript %}
+
+    {% block javascript2 %}
+    {% endblock javascript2 %}
+
+</body>
+</html>

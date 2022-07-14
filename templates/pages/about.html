@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%} About {% endblock%}
+
+{% block mainContent %}
+    <!-- Start main page -->
+    <main class="main-content">
+        <div class="app-loader"><i class="icofont-spinner-alt-4 rotate"></i></div>
+
+        <div class="main-content-wrap">
+            <div class="page-content">
+                <div class="page-box">
+                    <div class="landing">
+                        <div class="intro-text">
+                            <h4 class="text-white">Company Name</h4>
+                            <div class="text-white">
+                                We are a new healthcare company that believes that the future starts today not tomorrow, hence we are offering a smart healthcare system for you, your family, and the loved ones that you care for. <br/>The comfortability
+                                of our patients is our target, so we are using the latest technology in the healthcare field.
+                                <br/> We are using IOT Technology through using hardware & Software systems we can monitor your health status with portable devices that can be used at home. <br/>You will no longer need to go to the hospital unless
+                                it's urgent, and by applying this technology we would have more spaces in hospitals for those who need it.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Start features section-->
+                    <div class="features">
+                        <div class="container">
+                            <div class="feat">
+                                <div>
+                                    <div class="icon p-0 fs-48 text-primary opacity-50 icofont-doctor"></div>
+                                    <div class="icon p-0 fs-48 text-primary opacity-50 icofont-nurse-alt"></div>
+                                </div>
+                                <h3>Medical Staff</h3>
+                                <p>Our Staff consists of<br/> <strong>Doctors</strong> who are Responsible for monitoring patient status and editing their profiles with the latest diagnostic updates.<br/> <strong>A workstation Nurse</strong> is Located
+                                    inside our headquarters to monitor the patient vital signs and call for emergencies.<br/><strong>Medication Nurse</strong> Delivers the medicine for our patient and makes sure that medication is taken correctly.</p>
+                            </div>
+                            <div class="feat">
+                                <div class="icon p-0 fs-48 text-primary opacity-50 icofont-patient-bed"></div>
+                                <h3>Patients</h3>
+                                <p>Patients can view their vital signs and the latest updates from the doctor attached with the reports and charts that explain his status.</p>
+                            </div>
+                            <div class="feat">
+                                <div class="icon p-0 fs-48 text-primary opacity-50 icofont-chart-line-alt"></div>
+                                <h3>Management</h3>
+                                <p>Medical Staff Data analysis is supervised by our management in order to make sure that our patients are having the best efficient and reliable services.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End features section-->
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- End main page -->
+{% endblock mainContent %}
+
