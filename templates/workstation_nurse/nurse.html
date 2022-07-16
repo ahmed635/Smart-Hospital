@@ -234,9 +234,9 @@
                         var sys_pressure = responese.patient_parameters["sys pressure"];
                         var dia_pressure = responese.patient_parameters["dya pressure"];
                         var temp = responese.patient_parameters["body temperature"];
-                        //console.log(id)
+                        console.log(id)
                         if(id == "{{firebase_patient_id}}" ) {
-                                //console.log(responese.patient_parameters);
+                                console.log(responese.patient_parameters);
                                 $("#{{firebase_patient_id}}_spo2").empty();
                                 $("#{{firebase_patient_id}}_heart_rate").empty();
                                 $("#{{firebase_patient_id}}_temperature").empty();
@@ -249,26 +249,26 @@
                                 if(spo2 >= 100 || spo2 <= 92){
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
-                                    //console.log("SpO2");
+                                    console.log("SpO2");
                                 } else if(temp >= 38 || temp <= 34){  
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
-                                    //console.log("temperature");
+                                    console.log("temperature");
                                 } else if (heart_rate >= 120 || heart_rate <= 55){
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
-                                    //console.log("heart rate");
+                                    console.log("heart rate");
                                 } else if (dia_pressure >= 90 || dia_pressure <= 65){
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
-                                    //console.log("dia pressure");
+                                    console.log("dia pressure");
                                 } else if (sys_pressure >= 135 || sys_pressure <= 100){
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'red';
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'inline-block';
-                                    //console.log("sys pressure");
+                                    console.log("sys pressure");
                                 } else {
                                     document.getElementById('{{firebase_patient_id}}_alerm').style.color = 'green';
-                                    //console.log("Normal");
+                                    console.log("Normal");
                                     document.getElementById('{{firebase_patient_id}}_reset').style.display = 'none';
 
                                 }
@@ -280,7 +280,7 @@
                     },
                     
                 });
-            },120000); // for 5 minutes = 300000
+            },30000); // for 5 minutes = 300000
         });
 
         function reset(){
