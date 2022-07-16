@@ -486,11 +486,9 @@
                                             <div class="col">
                                                 {% for comment in doctor_comments %}
                                                     <div class="form-group ">
-
-                                                            {{comment.comment}} <br>
-                                                            <label>date: {{comment.date_in}}</label> <br>
-                                                            <label>time: {{comment.time_in}}</label>
-                                                        
+                                                        {{comment.comment}} <br>
+                                                        <label>date: {{comment.date_in}}</label> <br>
+                                                        <label>time: {{comment.time_in}}</label>
                                                     </div>
                                                 {% endfor %}
                                             </div>
@@ -510,11 +508,10 @@
                                     <div class="card-body">
                                         <div class="row align-items-center mb-3">
                                             <div class="col">
-                                               
+                                                <form>
                                                     <label>Nurse: {{user_type.w_nurse.full_name}} </label>
                                                     {% for comment in workstation_nurse_comments %}
-                                                        <div class="form-group ">
-                                                        
+                                                        <div class="form-group ">        
                                                             {{comment.comment}} <br>
                                                             <label>date: {{comment.date_in}}</label> <br>
                                                             <label>time: {{comment.time_in}}</label>
@@ -539,15 +536,14 @@
                                                 <form>
                                                     <label>Nurse: {{user_type.m_nurse.full_name}}</label>
 
-                                                    
                                                         {% for comment in medicaiton_nurse_comments %}
+                                                    
                                                             <div class="form-group ">
                                                                 {{comment.comment}} <br>
                                                                 <label>date: {{comment.date_in}}</label> <br>
                                                                 <label>time: {{comment.time_in}}</label>
                                                             </div>
                                                         {% endfor %}
-                                                    
                                             </div>
                                         </div>
                                     </div>
